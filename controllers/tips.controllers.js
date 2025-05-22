@@ -96,21 +96,31 @@ const tipsDetails = async(req,res)=>{
 }
 
 const updateTip = async (req, res) => {
-    const { tip } = req.body;
+     const {
+        title,
+        plantType,
+        difficulty,
+        description,
+        image,
+        category,
+        availability,
+        user
+    } = req.body;
+    const {id}  = req.params;
     try {
-        const { _id, title, plantType, diffifulty, description, image, category, availability } = tip;
-
+       
         const updatedTip = await Tip.findByIdAndUpdate(
-            _id,
+            id,
             {
-                title,
-                plantType,
-                diffifulty,
-                description,
-                image,
-                category,
-                availability
-            },
+        title,
+        plantType,
+        difficulty,
+        description,
+        image,
+        category,
+        availability,
+        user
+    },
             { new: true } 
         );
 

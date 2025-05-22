@@ -35,7 +35,8 @@ const GardeningTipSchema = new mongoose.Schema({
       'Hydroponics',
       'Indoor Gardening',
       'Organic Gardening',
-      'Container Gardening'
+      'Container Gardening',
+      'Pest Control'
     ],
     required: true
   },

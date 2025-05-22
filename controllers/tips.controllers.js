@@ -105,12 +105,13 @@ const updateTip = async (req, res) => {
         category,
         availability,
         user
-    } = req.body;
+    } = req.body?.formData;
     const {id}  = req.params;
+
     try {
        
         const updatedTip = await Tip.findByIdAndUpdate(
-            id,
+           {_id :  id},
             {
         title,
         plantType,
@@ -118,12 +119,11 @@ const updateTip = async (req, res) => {
         description,
         image,
         category,
-        availability,
-        user
+        availability
     },
             { new: true } 
         );
-
+   
         if (!updatedTip) {
             return res.status(404).send({
                 message: 'Tip not found.',
@@ -144,7 +144,54 @@ const updateTip = async (req, res) => {
     }
 };
 
+const browseTips = async(req,res)=>{
+    
+    try {
+        const tips = await Tip.find({ availability : 'Public'})
+        return res.status(200).send({
+            message: 'tips fetched',
+            tips,
+            success: false
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false
+        });
+    }
+}
 
+const likeTip = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const updatedTip = await Tip.findByIdAndUpdate(
+            { _id: id },
+            { $inc: { likes: 1 } }, 
+            { new: true } 
+        );
+
+        if (!updatedTip) {
+            return res.status(404).send({
+                message: 'Tip not found',
+                success: false
+            });
+        }
+
+        return res.status(200).send({
+            message: 'Tip liked successfully',
+            success: true,
+        });
+    } catch (error) {
+       
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false,
+            error: error.message
+        });
+    }
+};
 
 
 
@@ -152,5 +199,7 @@ module.exports ={
     createTip,
     updateTip,
     myTips,
-    tipsDetails
+    tipsDetails,
+    browseTips,
+    likeTip
 }

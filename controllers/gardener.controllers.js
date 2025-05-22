@@ -85,14 +85,37 @@ const getAllGardeners = async (req, res) => {
     });
   }
 };
-
+const gardenerDetails = async(req,res)=>{
+    const {id} = req.params;
+    try {
+         if (!id ) {
+            return res.status(400).send({
+                message: "id is required.",
+                success: false
+            });
+        }
+        const gardener = await Gardener.findById(id)
+        return res.status(200).send({
+            message: 'gardener fetched',
+            gardener,
+            success: false
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false
+        });
+    }
+}
 
 
 
 module.exports = { 
     createGardener,
     getActiveGardeners,
-    getAllGardeners
+    getAllGardeners,
+    gardenerDetails
 };
 
 

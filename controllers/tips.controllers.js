@@ -161,6 +161,22 @@ const browseTips = async(req,res)=>{
         });
     }
 }
+const TrendingTips = async(req,res)=>{
+    try {
+        const tips = await Tip.find({ availability : 'Public'}).limit(6)
+        return res.status(200).send({
+            message: 'tips fetched',
+            tips,
+            success: false
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false
+        });
+    }
+}
 
 const likeTip = async (req, res) => {
     const { id } = req.params;
@@ -193,7 +209,24 @@ const likeTip = async (req, res) => {
     }
 };
 
+const deleteTip = async (req, res) => {
+    const { id } = req.params;
 
+    try {
+        await Tip.findByIdAndDelete(id);
+
+        return res.status(200).send({
+            message: 'Tip deleted',
+            success: true,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false,
+            error: error.message
+        });
+    }
+};
 
 module.exports ={
     createTip,
@@ -201,5 +234,7 @@ module.exports ={
     myTips,
     tipsDetails,
     browseTips,
-    likeTip
+    likeTip,
+    TrendingTips,
+    deleteTip
 }

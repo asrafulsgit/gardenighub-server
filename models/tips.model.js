@@ -58,6 +58,11 @@ const GardeningTipSchema = new mongoose.Schema({
       required: true,
       trim: true,
       immutable: true 
+    },
+    photo: {
+      type: String,
+      default: 'https://i.ibb.co.com/hRGTZWdX/download.jpg',
+      immutable: true 
     }
   }
 }, {

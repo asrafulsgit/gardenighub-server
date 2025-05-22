@@ -28,7 +28,15 @@ const GardeningTipSchema = new mongoose.Schema({
   ,
   category: {
     type: String,
-    enum: ['Composting', 'Plant Care', 'Vertical Gardening', 'Soil Health', 'Hydroponics'],
+    enum: ['Composting', 
+      'Plant Care', 
+      'Vertical Gardening', 
+      'Soil Health', 
+      'Hydroponics',
+      'Indoor Gardening',
+      'Organic Gardening',
+      'Container Gardening'
+    ],
     required: true
   },
   availability: {
@@ -36,6 +44,7 @@ const GardeningTipSchema = new mongoose.Schema({
     enum: ['Public', 'Hidden'],
     required: true
   },
+  likes : {type : Number, default : 0},
   user: {
     email: {
       type: String,

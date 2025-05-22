@@ -1,33 +1,64 @@
 const Tip = require("../models/tips.model");
 
 
-const createTip =async(req,res)=>{
-    const {tip} = req.body;
+const createTip = async (req, res) => {
+    const {
+        title,
+        plantType,
+        difficulty,
+        description,
+        image,
+        category,
+        availability,
+        user
+    } = req.body;
+
     try {
-        const {title,plantType,diffifulty,description,image,category,availability,user} = tip;
+        if (!title || !plantType || !difficulty || !description || !image || !category || !availability || !user?.email || !user?.name) {
+            return res.status(400).send({
+                message: "All fields are required.",
+                success: false
+            });
+        }
         const newTip = new Tip({
             title,
             plantType,
-            diffifulty,
+            difficulty,
             description,
             image,
             category,
             availability,
             user
-        })
+        });
+
         await newTip.save();
-         return res.status(201).send({
-            message : 'tip successfully created.',
-            success : true
-        })
+
+        return res.status(201).send({
+            message: 'Tip successfully created.',
+            success: true
+        });
     } catch (error) {
-         return res.status(500).send({
-            message : 'something borke!',
-            success : false
-        })
+        console.error(error);
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false
+        });
     }
 }
 
+
+const myTips = async(req,res)=>{
+    const {email} =req.quary;
+    try {
+        console.log(email)
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false
+        });
+    }
+}
 
 const updateTip = async (req, res) => {
     const { tip } = req.body;
@@ -74,5 +105,6 @@ const updateTip = async (req, res) => {
 
 module.exports ={
     createTip,
-    updateTip
+    updateTip,
+    myTips
 }

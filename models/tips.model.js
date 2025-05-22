@@ -1,0 +1,58 @@
+const mongoose = require('mongoose');
+
+const GardeningTipSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  plantType: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  difficulty: {
+    type: String,
+    enum: ['Easy', 'Medium', 'Hard'],
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  images: 
+    {
+      type: String,
+      required : true
+    }
+  ,
+  category: {
+    type: String,
+    enum: ['Composting', 'Plant Care', 'Vertical Gardening', 'Soil Health', 'Hydroponics'],
+    required: true
+  },
+  availability: {
+    type: String,
+    enum: ['Public', 'Hidden'],
+    required: true
+  },
+  user: {
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true,
+      immutable: true 
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+      immutable: true 
+    }
+  }
+}, {
+  timestamps: true
+});
+
+module.exports = mongoose.model('GardeningTip', GardeningTipSchema);

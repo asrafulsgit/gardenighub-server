@@ -1,5 +1,5 @@
 const express = require('express');
-const { createTip, updateTip, myTips, tipsDetails, browseTips, likeTip, TrendingTips, deleteTip } = require('../controllers/tips.controllers');
+const { createTip, updateTip, myTips, tipsDetails, browseTips, likeTip, TrendingTips, deleteTip, filterTips } = require('../controllers/tips.controllers');
 const tipsRouter = express.Router();
 
 
@@ -12,5 +12,6 @@ tipsRouter.get('/api/v1/browse-tips',browseTips)
 tipsRouter.get('/api/v1/trending-tips',TrendingTips)
 tipsRouter.put('/api/v1/like-tip/:id',likeTip)
 tipsRouter.delete('/api/v1/delete-tip/:id',deleteTip)
+tipsRouter.get('/api/v1/filter-tips',filterTips)
 
 module.exports = tipsRouter;

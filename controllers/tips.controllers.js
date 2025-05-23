@@ -228,6 +228,35 @@ const deleteTip = async (req, res) => {
     }
 };
 
+const filterTips = async(req,res)=>{
+    const {level} = req.query;
+    try {
+
+        const levels = ['Easy', 'Medium', 'Hard']
+        if(!levels.includes(level)){
+            return res.status(400).send({
+            message: 'Wrong Input!',
+            success: false
+            })
+        }
+        const tips = await Tip.find({ difficulty : level,availability : 'Public'})
+        return res.status(200).send({
+            message: 'tips fetched',
+            tips,
+            success: false
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: 'Something broke!',
+            success: false
+        });
+    }
+}
+
+
+
+
 module.exports ={
     createTip,
     updateTip,
@@ -236,5 +265,6 @@ module.exports ={
     browseTips,
     likeTip,
     TrendingTips,
-    deleteTip
+    deleteTip,
+    filterTips
 }

@@ -15,7 +15,6 @@ let httpServer;
 
 mongoConnection().then(() => {
     httpServer = server.listen(PORT, () => {
-
        console.log('🚀 Server is running on port', PORT);
      });
    }).catch((err) => {

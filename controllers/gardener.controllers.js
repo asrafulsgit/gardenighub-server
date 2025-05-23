@@ -1,4 +1,3 @@
-// controllers/gardenerController.js
 const Gardener = require('../models/gardener.model');
 
 const createGardener = async (req, res) => {
@@ -14,7 +13,7 @@ const createGardener = async (req, res) => {
       bio
     } = req.body;
 
-    // Basic validation (you can expand this as needed)
+ 
     if (!name || !age || !gender || !experiences) {
       return res.status(400).json({
         success: false,
@@ -77,6 +76,7 @@ const getAllGardeners = async (req, res) => {
       message: 'All gardeners fetched successfully',
       gardeners
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -87,8 +87,9 @@ const getAllGardeners = async (req, res) => {
 };
 const gardenerDetails = async(req,res)=>{
     const {id} = req.params;
+    
     try {
-         if (!id ) {
+         if (!id) {
             return res.status(400).send({
                 message: "id is required.",
                 success: false
@@ -101,10 +102,10 @@ const gardenerDetails = async(req,res)=>{
             success: false
         });
     } catch (error) {
-        console.error(error);
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error: error.message
         });
     }
 }

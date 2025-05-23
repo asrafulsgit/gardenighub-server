@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors')
 const userRouter = require('./routes/user.route');
 const tipsRouter = require('./routes/tips.route');
-const Gardener = require('./models/gardener.model');
 const gardernerRoute = require('./routes/gardener.route');
 const app = express()
 
@@ -13,9 +12,9 @@ app.use(cors({
 }))
 
 
-app.use(userRouter)
-app.use(tipsRouter)
-app.use(gardernerRoute)
+app.use('/api/v1', userRouter)
+app.use('/api/v1', tipsRouter)
+app.use('/api/v1', gardernerRoute)
 
 
 

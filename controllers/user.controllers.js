@@ -8,6 +8,7 @@ const createUser = async(req,res)=>{
             email,
             photo
         })
+
         await user.save();
         return res.status(201).send({
             message : 'user successfully created.',
@@ -16,7 +17,8 @@ const createUser = async(req,res)=>{
     } catch (error) {
         return res.status(500).send({
             message : 'something borke!',
-            success : false
+            success : false,
+            error : error.message
         })
     }
 }

@@ -1,11 +1,12 @@
 const express = require('express');
-const { getActiveGardeners, getAllGardeners, gardenerDetails } = require('../controllers/gardener.controllers');
 const gardernerRoute = express.Router();
 
+const { getActiveGardeners, getAllGardeners, gardenerDetails } = require('../controllers/gardener.controllers');
 
-gardernerRoute.get('/api/v1/gardener/active',getActiveGardeners)
-gardernerRoute.get('/api/v1/gardeners',getAllGardeners)
-gardernerRoute.get('/api/v1/gardener/:id',gardenerDetails)
+
+gardernerRoute.get('/gardener/active',getActiveGardeners)
+gardernerRoute.get('/gardeners',getAllGardeners)
+gardernerRoute.get('/gardener/:id',gardenerDetails)
 
 
 module.exports = gardernerRoute;

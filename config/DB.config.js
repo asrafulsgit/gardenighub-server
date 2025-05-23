@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');  
+const mongoose = require('mongoose'); 
+
 const mongoConnection = () => {
    return  mongoose.connect(process.env.MONGO_DB_URL,{
      serverSelectionTimeoutMS: 10000,

@@ -39,10 +39,10 @@ const createTip = async (req, res) => {
             success: true
         });
     } catch (error) {
-        console.error(error);
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error: error.message
         });
     }
 }
@@ -64,10 +64,11 @@ const myTips = async(req,res)=>{
             success: false
         });
     } catch (error) {
-        console.error(error);
+         
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error: error.message
         });
     }
 }
@@ -90,7 +91,8 @@ const tipsDetails = async(req,res)=>{
         console.error(error);
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error: error.message
         });
     }
 }
@@ -106,10 +108,17 @@ const updateTip = async (req, res) => {
         availability,
         user
     } = req.body?.formData;
+
     const {id}  = req.params;
 
     try {
-       
+       if (!id ) {
+            return res.status(400).send({
+                message: "id is required.",
+                success: false
+            });
+        }
+
         const updatedTip = await Tip.findByIdAndUpdate(
            {_id :  id},
             {
@@ -139,7 +148,8 @@ const updateTip = async (req, res) => {
     } catch (error) {
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error: error.message
         });
     }
 };
@@ -154,10 +164,10 @@ const browseTips = async(req,res)=>{
             success: false
         });
     } catch (error) {
-        console.error(error);
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error: error.message
         });
     }
 }
@@ -170,10 +180,11 @@ const TrendingTips = async(req,res)=>{
             success: false
         });
     } catch (error) {
-        console.error(error);
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error: error.message
+
         });
     }
 }
@@ -182,6 +193,12 @@ const likeTip = async (req, res) => {
     const { id } = req.params;
 
     try {
+         if (!id ) {
+            return res.status(400).send({
+                message: "id is required.",
+                success: false
+            });
+        }
         const updatedTip = await Tip.findByIdAndUpdate(
             { _id: id },
             { $inc: { likes: 1 } }, 
@@ -213,6 +230,13 @@ const deleteTip = async (req, res) => {
     const { id } = req.params;
 
     try {
+         if (!id ) {
+            return res.status(400).send({
+                message: "id is required.",
+                success: false
+            });
+        }
+
         await Tip.findByIdAndDelete(id);
 
         return res.status(200).send({
@@ -246,10 +270,11 @@ const filterTips = async(req,res)=>{
             success: false
         });
     } catch (error) {
-        console.error(error);
+   
         return res.status(500).send({
             message: 'Something broke!',
-            success: false
+            success: false,
+            error : error.message
         });
     }
 }

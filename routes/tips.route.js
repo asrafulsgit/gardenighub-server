@@ -4,14 +4,14 @@ const tipsRouter = express.Router();
 
 
  
-tipsRouter.post('/api/v1/tip',createTip)
-tipsRouter.get('/api/v1/my-tips',myTips)
-tipsRouter.get('/api/v1/tip-details/:id',tipsDetails)
-tipsRouter.put('/api/v1/tip/:id',updateTip)
-tipsRouter.get('/api/v1/browse-tips',browseTips)
-tipsRouter.get('/api/v1/trending-tips',TrendingTips)
-tipsRouter.put('/api/v1/like-tip/:id',likeTip)
-tipsRouter.delete('/api/v1/delete-tip/:id',deleteTip)
-tipsRouter.get('/api/v1/filter-tips',filterTips)
+tipsRouter.post('/tip',createTip)
+tipsRouter.get('/my-tips',myTips)
+tipsRouter.get('/tip-details/:id',tipsDetails)
+tipsRouter.put('/tip/:id',updateTip)
+tipsRouter.get('/browse-tips',browseTips)
+tipsRouter.get('/trending-tips',TrendingTips)
+tipsRouter.put('/like-tip/:id',likeTip)
+tipsRouter.delete('/delete-tip/:id',deleteTip)
+tipsRouter.get('/filter-tips',filterTips)
 
 module.exports = tipsRouter;

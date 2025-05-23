@@ -70,4 +70,6 @@ const GardeningTipSchema = new mongoose.Schema({
   timestamps: true
 });
 
+GardeningTipSchema.index({ createdAt: -1 }); 
+
 module.exports = mongoose.model('GardeningTip', GardeningTipSchema);

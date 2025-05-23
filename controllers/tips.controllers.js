@@ -57,7 +57,7 @@ const myTips = async(req,res)=>{
                 success: false
             });
         }
-        const tips = await Tip.find({"user.email" : email})
+        const tips = await Tip.find({"user.email" : email}).sort({createdAt : -1})
         return res.status(200).send({
             message: 'tips fetched',
             tips,
@@ -147,7 +147,7 @@ const updateTip = async (req, res) => {
 const browseTips = async(req,res)=>{
     
     try {
-        const tips = await Tip.find({ availability : 'Public'})
+        const tips = await Tip.find({ availability : 'Public'}).sort({createdAt : -1})
         return res.status(200).send({
             message: 'tips fetched',
             tips,
@@ -239,7 +239,7 @@ const filterTips = async(req,res)=>{
             success: false
             })
         }
-        const tips = await Tip.find({ difficulty : level,availability : 'Public'})
+        const tips = await Tip.find({ difficulty : level,availability : 'Public'}).sort({createdAt : -1})
         return res.status(200).send({
             message: 'tips fetched',
             tips,

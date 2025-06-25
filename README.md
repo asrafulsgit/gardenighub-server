@@ -32,7 +32,7 @@ This is the backend/server-side of the **GardeningHub** web application. It is b
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/gardeninghub-server.git
+git clone https://github.com/asrafulsgit/gardenhub-server
 cd server
 npm install
 npm run dev

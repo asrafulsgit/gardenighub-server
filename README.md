@@ -47,8 +47,6 @@ npm run dev
 ---
 
 ## 🚀 Deployment
-
-- **Frontend**: Netlify  
 - **Backend**: Vercel  
 - **Database**: MongoDB Atlas
 

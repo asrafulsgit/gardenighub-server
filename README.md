@@ -1,4 +1,4 @@
-# 🌿 GardeningHub - Server
+# 🌿 GardenHub - Server
 
 ## ✅ Overview
 

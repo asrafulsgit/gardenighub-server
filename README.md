@@ -37,6 +37,43 @@ cd server
 npm install
 npm run dev
 ```
+---
+
+#📡 GardenHub API Documentation
+
+## 📚 Tip APIs
+
+| Method | Endpoint                                 | Description                        | Auth Required |
+|--------|------------------------------------------|------------------------------------|----------------|
+| POST   | `/api/v1/tip`                            | Create a new gardening tip         | ❌             |
+| GET    | `/api/v1/my-tips`                        | Get tips created by the user       | ❌             |
+| GET    | `/api/v1/tip-details/:id`                | Get details of a specific tip      | ❌             |
+| PUT    | `/api/v1/tip/:id`                        | Update a tip                       | ❌             |
+| GET    | `/api/v1/browse-tips`                    | Browse all tips                    | ✅             |
+| GET    | `/api/v1/trending-tips`                  | Get trending tips                  | ✅             |
+| PUT    | `/api/v1/like-tip/:id`                   | Like or unlike a tip               | ❌             |
+| DELETE | `/api/v1/delete-tip/:id`                 | Delete a tip                       | ❌             |
+| GET    | `/api/v1/filter-tips`                    | Filter tips by category or tags    | ❌             |
+
+---
+
+## 🧑‍🌾 Gardener APIs
+
+| Method | Endpoint                                 | Description                          | Auth Required |
+|--------|------------------------------------------|--------------------------------------|----------------|
+| GET    | `/api/v1/gardener/active`                | Get active gardeners (e.g., featured)| ❌             |
+| GET    | `/api/v1/gardeners`                      | Get list of all gardeners            | ❌             |
+| GET    | `/api/v1/gardener/:id`                   | Get gardener details by ID           | ❌             |
+
+---
+
+## 👤 User APIs
+
+| Method | Endpoint                                 | Description                 | Auth Required |
+|--------|------------------------------------------|-----------------------------|----------------|
+| POST   | `/api/v1/user`                           | Register or create a user   | ✅             |
+
+---
 
 ## 🔒 Authentication
 
@@ -52,7 +89,7 @@ npm run dev
 
 ---
 
-## 🧩 tip Model (Mongoose Schema)
+## 🧩 Tip Model (Mongoose Schema)
 
 ```js
 const GardeningTipSchema = new mongoose.Schema({

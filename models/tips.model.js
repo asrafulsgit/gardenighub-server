@@ -47,24 +47,9 @@ const GardeningTipSchema = new mongoose.Schema({
   },
   likes : {type : Number, default : 0},
   user: {
-    email: {
-      type: String,
-      required: true,
-      lowercase: true,
-      trim: true,
-      immutable: true 
-    },
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-      immutable: true 
-    },
-    photo: {
-      type: String,
-      default: 'https://i.ibb.co.com/hRGTZWdX/download.jpg',
-      immutable: true 
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 }, {
   timestamps: true

@@ -3,6 +3,8 @@ const Tip = require("../models/tips.model");
 
 
 const createTip = async (req, res) => {
+    const { userId } = req.user; 
+ 
     const {
         title,
         plantType,
@@ -11,11 +13,11 @@ const createTip = async (req, res) => {
         image,
         category,
         availability,
-        user
     } = req.body;
-
+   
     try {
-        if (!title || !plantType || !difficulty || !description || !image || !category || !availability || !user?.email || !user?.name) {
+        if (!title || !plantType || !difficulty || !description || !image ||
+             !category || !availability ) {
             return res.status(400).send({
                 message: "All fields are required.",
                 success: false
@@ -29,7 +31,7 @@ const createTip = async (req, res) => {
             image,
             category,
             availability,
-            user
+            user : userId
         });
 
         await newTip.save();
@@ -49,15 +51,16 @@ const createTip = async (req, res) => {
 
 
 const myTips = async(req,res)=>{
-    const {email} = req.query;
+    const {userId} = req.user;
+     
     try {
-         if (!email ) {
+         if (!userId ) {
             return res.status(400).send({
-                message: "Email is required.",
+                message: "user id is required.",
                 success: false
             });
         }
-        const tips = await Tip.find({"user.email" : email}).sort({createdAt : -1})
+        const tips = await Tip.find({user : userId}).sort({createdAt : -1})
         return res.status(200).send({
             message: 'tips fetched',
             tips,
@@ -81,7 +84,7 @@ const tipsDetails = async(req,res)=>{
                 success: false
             });
         }
-        const tip = await Tip.findById(id)
+        const tip = await Tip.findById(id).populate('user', 'email name photo');
         return res.status(200).send({
             message: 'tips fetched',
             tip,
@@ -106,7 +109,6 @@ const updateTip = async (req, res) => {
         image,
         category,
         availability,
-        user
     } = req.body?.formData;
 
     const {id}  = req.params;
@@ -120,7 +122,7 @@ const updateTip = async (req, res) => {
         }
 
         const updatedTip = await Tip.findByIdAndUpdate(
-           {_id :  id},
+           {_id :  id,user : req.user.userId},
             {
         title,
         plantType,
@@ -228,7 +230,7 @@ const likeTip = async (req, res) => {
 
 const deleteTip = async (req, res) => {
     const { id } = req.params;
-
+    const { userId } = req.user;
     try {
          if (!id ) {
             return res.status(400).send({
@@ -237,7 +239,7 @@ const deleteTip = async (req, res) => {
             });
         }
 
-        await Tip.findByIdAndDelete(id);
+        await Tip.findOneAndDelete({_id : id, user : userId});
 
         return res.status(200).send({
             message: 'Tip deleted',
@@ -279,6 +281,33 @@ const filterTips = async(req,res)=>{
     }
 }
 
+const searchTips = async(req,res)=>{ 
+     try {
+       const {search} = req.query;
+       
+       if(!search) {
+        return res.status(404).send({ 
+          success: false, 
+          message: `Please enter event name!` 
+        });
+       }
+  
+       const tips = await Tip.find({ category : {$regex: search, $options: 'i'} })
+       
+       return res.status(200).send({ 
+         success: true, 
+         tips,
+         message: 'Search tips successfull' 
+       });
+     } catch (error) {
+       console.error(error);
+       return res.status(500).send({ 
+        success: false, 
+        message: "Something broke!" 
+    });
+     }
+   }
+
 
 
 
@@ -291,5 +320,6 @@ module.exports ={
     likeTip,
     TrendingTips,
     deleteTip,
-    filterTips
+    filterTips,
+    searchTips
 }

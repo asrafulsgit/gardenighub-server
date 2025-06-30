@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+
 const userRouter = require('./routes/user.route');
 const tipsRouter = require('./routes/tips.route');
 const gardernerRoute = require('./routes/gardener.route');
 const eventRouter = require('./routes/event.route');
 const tipCommentRouter = require('./routes/tipComent.route');
 const savedTipRouter = require('./routes/savedTip.route');
+
 const app = express()
 
 app.use(express.json())

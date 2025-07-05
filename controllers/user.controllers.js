@@ -105,7 +105,7 @@ const userLogin = async (req, res) => {
       process.env.JWT_ACCESS_TOEKN,
       { expiresIn: "10d" }
     );
-    res.cookie("accesstoken", accessToken, {
+    res.cookie("gdhAccesstoken", accessToken, {
       httpOnly: true,
       secure: true, 
       sameSite: "None",
@@ -151,7 +151,7 @@ const googleLogin = async (req, res) => {
           { expiresIn: "10d" }
         );
     
-        res.cookie("accesstoken", accessToken, {
+        res.cookie("gdhAccesstoken", accessToken, {
         httpOnly: true,
         secure: true, 
         sameSite: "None", 

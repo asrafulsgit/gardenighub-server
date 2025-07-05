@@ -20,6 +20,7 @@ app.use(cors({
 }))
 
 
+
 app.use('/api/v1', userRouter)
 app.use('/api/v1', tipsRouter)
 app.use('/api/v1', tipCommentRouter)
